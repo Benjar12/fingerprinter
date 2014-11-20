@@ -1,0 +1,12 @@
+{
+  "name": "finerprinter",
+  "description": "",
+  "author": "Ben Jarman <bjarman@local.com>",
+  "dependencies": {
+    "express": "4.10.2",
+    "mongoose": "3.8.19",
+    "body-parser": "1.9.2",
+    "MD5": "1.2.1"
+  },
+  "engine": "node 0.10.31"
+}
