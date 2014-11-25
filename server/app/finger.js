@@ -10,8 +10,10 @@ function post(deps){
             screendimensions = (req.body.screendimensions||{}),
             windowdimensions = (req.body.windowdimensions||{}),
             url = (req.body.location||""),
-            primaryKey = deps.md5(useragent + '_' + ip + '_' + canvasfingerprint);
-
+            primaryKey = deps.md5(useragent + '_' + ip + '_' + canvasfingerprint + '_' + JSON.stringify(plugindata) );
+        
+        
+        
         //check exists
         fingerprints.findOne({_id:primaryKey}, function(err, data){
             if(err)
@@ -19,7 +21,13 @@ function post(deps){
             
             if(data){
                 var urls = data.urls;
-                fingerprints.update({_id:primaryKey}, {count: (data.count||0) + 1, $push:{urls:url}, dateLastScene: Date.now()}, errHandler);
+                fingerprints.update(
+                    {_id:primaryKey}, 
+                    {
+                        count: (data.count||0) + 1, 
+                        $push:{urls:url}, 
+                        dateLastScene: Date.now()
+                    }, errHandler);
             }else{
                 insertNew();
             }
@@ -47,7 +55,7 @@ function post(deps){
         
         }
         
-        res.send({});
+        res.send({foo:'bar'});
     };
 }
 
